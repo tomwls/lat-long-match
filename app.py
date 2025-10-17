@@ -2,10 +2,7 @@ import streamlit as st
 import pandas as pd
 from geopy.distance import geodesic
 
-st.title("MDT Lat/Long to Branch Lookup")
-
-st.text("Branches file must have the following headers: Branch Name, Latitude, Longitude")
-st.text("Devices file must have the following headers: Device Serial, Latitude, Longitude")
+st.title("📍 Device-to-Branch Location Matcher")
 
 # Upload files
 branches_file = st.file_uploader("Upload branches file", type=["csv", "xlsx"])
@@ -27,7 +24,7 @@ if branches_file and devices_file:
         nearest_idx = distances.idxmin()
         return branches.loc[nearest_idx, "Branch Name"], distances.min()
 
-    # Calc nearest branch
+    # Compute nearest branch for all devices
     devices[["Nearest Branch", "Distance (m)"]] = devices.apply(
         lambda row: pd.Series(nearest_branch(row["Latitude"], row["Longitude"])),
         axis=1
