@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from geopy.distance import geodesic
 
-st.title("📍 Device-to-Branch Location Matcher")
+st.title("MDT to Branch Match Tool")
 
 # Upload files
 branches_file = st.file_uploader("Upload branches file", type=["csv", "xlsx"])
@@ -30,10 +30,6 @@ if branches_file and devices_file:
         axis=1
     )
 
-    # Display results
-    st.subheader("Matched Results")
-    st.dataframe(devices)
-
     # Download button
     st.download_button(
         label="Download results as CSV",
@@ -41,3 +37,7 @@ if branches_file and devices_file:
         file_name="device_branch_matches.csv",
         mime="text/csv"
     )
+
+    # Display results
+    st.subheader("Matched Results")
+    st.dataframe(devices)
